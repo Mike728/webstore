@@ -79,9 +79,35 @@
 
         <tfoot ng-if="items.cartItemList.length > 0">
         <tr>
-            <td><a href="#" th:href="@{'/logout'}" class="btn btn-info ">Kontynuuj zakupy </a></td>
+            <td><a href="#" th:href="@{'/index'}" class="btn btn-info ">Kontynuuj zakupy </a></td>
             <td class="hidden-xs text-center"><strong>Łącznie {{items.subTotal}} PLN</strong></td>
-            <td><a href="#" class="btn btn-success actions">Do kasy</a></td>
+            <td><a href="#" class="btn btn-success actions" data-toggle="modal" data-target="#myModal">Do kasy</a>
+                <div sec:authorize="!isAuthenticated()">
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Błąd.</h4>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                    Aby przejść do kasy musisz być zalogowany.
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" data-dismiss="modal">Zamknij</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
         </tr>
         </tfoot>
     </table>

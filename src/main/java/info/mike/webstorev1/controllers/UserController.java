@@ -1,6 +1,7 @@
 package info.mike.webstorev1.controllers;
 
 import info.mike.webstorev1.commands.UserCommand;
+import info.mike.webstorev1.domain.User;
 import info.mike.webstorev1.repository.UserRepository;
 import info.mike.webstorev1.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -49,6 +51,13 @@ public class UserController {
         }
         userService.save(userCommand);
         return "redirect:/index";
+    }
+
+    @RequestMapping("/profile")
+    public String viewProfile(Model model, HttpServletRequest httpServletRequest){
+        User user = userRepository.findByEmail(httpServletRequest.getRemoteUser()).get();
+        model.addAttribute("user", user);
+        return "user/profile";
     }
 
 

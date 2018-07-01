@@ -1,35 +1,39 @@
 package info.mike.webstorev1.bootstrap;
 
-import info.mike.webstorev1.domain.Cart;
-import info.mike.webstorev1.domain.CartItem;
-import info.mike.webstorev1.domain.Category;
-import info.mike.webstorev1.domain.Product;
+import info.mike.webstorev1.domain.*;
 import info.mike.webstorev1.repository.CategoryRepository;
 import info.mike.webstorev1.repository.ProductRepository;
+import info.mike.webstorev1.repository.UserRepository;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 @Component
 public class WebstoreBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     ProductRepository productRepository;
+
     CategoryRepository categoryRepository;
 
-    public WebstoreBootstrap(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    UserRepository userRepository;
+
+    public WebstoreBootstrap(ProductRepository productRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         initData();
+        initTestUser();
     }
 
 
@@ -117,6 +121,30 @@ public class WebstoreBootstrap implements ApplicationListener<ContextRefreshedEv
         categoryRepository.save(oprogramowanie);
         categoryRepository.save(sprzetaudio);
         categoryRepository.save(fotoiwideo);
+    }
 
+    public void initTestUser(){
+        User user = new User();
+        user.setEmail("gg@wp.pl");
+        user.setPassword(passwordEncoder().encode("gg"));
+        user.setFirstName("Bob");
+        user.setLastName("Thompson");
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+
+        Address address = new Address();
+        address.setCity("Sacramento");
+        address.setCountry("United States");
+        address.setZipcode("94239");
+        address.setStreet("Neighbors Alley");
+        address.setHouseNumber("17/1");
+
+        address.setUser(user);
+        user.setAddress(address);
+        userRepository.save(user);
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

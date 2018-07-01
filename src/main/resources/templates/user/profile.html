@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Webstore</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-info navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#" th:href="@{'/index'}">Start Webstore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div sec:authorize="!isAuthenticated()">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{'/login'}">Zaloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{'/registration'}">Rejestracja</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" th:href="@{'/logout'}">Wyloguj</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Moje Konto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h1 class="my-4" th:text="${user.email}"> </h1>
+            <div class="list-group">
+                <table class="table table-borderless">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><dt>Imię </dt></td>
+                        <td th:text="${user.firstName}">Doe</td>
+                    </tr>
+                    <tr>
+                        <td><dt>Naziwsko </dt></td>
+                        <td th:text="${user.lastName}">Doe</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p><dt>Adres do wysyłki</dt></p>
+
+                <table class="table table-borderless">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><dt>Kraj</dt></td>
+                        <td th:text="${user.address.country}">Doe</td>
+                    </tr>
+                    <tr>
+                        <td><dt>Miasto</dt></td>
+                        <td th:text="${user.address.city}">Doe</td>
+                    </tr>
+                    <tr>
+                        <td><dt>Kod pocztowy</dt></td>
+                        <td th:text="${user.address.zipcode}">Doe</td>
+                    </tr>
+                    <tr>
+                        <td><dt>Ulica</dt></td>
+                        <td th:text="${user.address.street}">Doe</td>
+                    </tr>
+                    <tr>
+                        <td><dt>Nr domu</dt></td>
+                        <td th:text="${user.address.houseNumber}">Doe</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <a href = "#" th:href="@{'/index'}" type="button" class="btn btn-info">
+                    Aktualizuj</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
