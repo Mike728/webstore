@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
         return userToUserCommand.convert(savedUser);
     }
 
+    @Override
+    public UserCommand findUserCommand(String email){
+        return userToUserCommand.convert(userRepository.findByEmail(email).get());
+    }
+
     private org.springframework.security.core.userdetails.User createUser(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
             .map(authority -> new SimpleGrantedAuthority(authority.getName()))

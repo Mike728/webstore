@@ -1,6 +1,7 @@
 package info.mike.webstorev1.controllers;
 
 import info.mike.webstorev1.commands.UserCommand;
+import info.mike.webstorev1.domain.Role;
 import info.mike.webstorev1.domain.User;
 import info.mike.webstorev1.repository.UserRepository;
 import info.mike.webstorev1.service.UserService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Arrays;
 
 @Controller
 @Slf4j
@@ -60,5 +62,22 @@ public class UserController {
         return "user/profile";
     }
 
+    @RequestMapping("/profile/edit")
+    public String editProfile(Model model, HttpServletRequest httpServletRequest){
+        User user = userRepository.findByEmail(httpServletRequest.getRemoteUser()).get();
+        model.addAttribute("user", user);
+        return "user/editProfile";
+    }
+
+    @PostMapping("editedUser")
+    public String saveEditedUser(@ModelAttribute("user") User user, BindingResult bindingResult, HttpServletRequest httpServletRequest) {
+        User userFromDb = userRepository.findByEmail(httpServletRequest.getRemoteUser()).get();
+        user.setPassword(userFromDb.getPassword());
+        user.setEmail(userFromDb.getEmail());
+        user.getAddress().setId(userFromDb.getAddress().getId());
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        userRepository.save(user);
+        return "redirect:/index";
+    }
 
 }

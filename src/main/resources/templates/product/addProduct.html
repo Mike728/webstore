@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Dodaj produkt</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
-    <link  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-info navbar-dark">
     <div class="container">
         <a class="navbar-brand" href="#" th:href="@{'/index'}">Start Webstore</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{'/logout'}">Wyloguj</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Moje Konto</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{'/logout'}">Wyloguj</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Moje Konto</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -34,45 +35,48 @@
     <div class="container" style="margin-top: 20px">
         <div class="form-group">
             <div class="col-md-5">
-    <h2>Nowy produkt</h2>
+                <h2>Nowy produkt</h2>
                 <label>Nazwa:</label>
                 <input type="text" class="form-control" placeholder="Wpisz nazwę produktu" th:field="*{name}"/>
 
                 <label>Producent:</label>
-                <input type="text" class="form-control" placeholder="Wpisz nazwę producenta" th:field="*{manufacturer}"/>
-                </div>
+                <input type="text" class="form-control" placeholder="Wpisz nazwę producenta"
+                       th:field="*{manufacturer}"/>
+            </div>
 
-                <div class="col-md-3">
+            <div class="col-md-3">
                 <label>Cena:</label>
                 <input type="text" class="form-control" placeholder="Wpisz cenę" th:field="*{price}"/>
 
-                    <label>Liczba produktów:</label>
-                    <input type="text" class="form-control" placeholder="Wpisz l. produktów" th:field="*{unitsInStock}"/>
+                <label>Liczba produktów:</label>
+                <input type="text" class="form-control" placeholder="Wpisz l. produktów" th:field="*{unitsInStock}"/>
 
 
-                    <label>Wycofany:</label>
-                    <select class="form-control" th:field="*{discontinued}">
-                        <option th:value="true">Tak</option>
-                        <option th:value="false">Nie</option>
-                    </select>
-                </div>
-
-        <div class="col-md-3 form-group">
-            <label>Kategoria:</label>
-        </div>
-        <div class="col-md-9 form-group">
-            <th:block th:each="category : ${cat}">
-            <div class="radio">
-                <label>
-                    <input type="checkbox" value="" th:value="${category.id}" th:text="${category.categoryName}" th:field="*{categories}"/>
-                </label>
+                <label>Wycofany:</label>
+                <select class="form-control" th:field="*{discontinued}">
+                    <option th:value="true">Tak</option>
+                    <option th:value="false">Nie</option>
+                </select>
             </div>
-            </th:block>
-        </div>
+
+            <div class="col-md-3 form-group">
+                <label>Kategoria:</label>
+            </div>
+            <div class="col-md-9 form-group">
+                <th:block th:each="category : ${cat}">
+                    <div class="radio">
+                        <label>
+                            <input type="checkbox" value="" th:value="${category.id}" th:text="${category.categoryName}"
+                                   th:field="*{categories}"/>
+                        </label>
+                    </div>
+                </th:block>
+            </div>
 
             <div class="col-md-12 form-group">
                 <label>Opis produktu:</label>
-                <textarea class="form-control" rows="3" placeholder="Wpisz opis produktu" th:field="*{description}"></textarea>
+                <textarea class="form-control" rows="3" placeholder="Wpisz opis produktu"
+                          th:field="*{description}"></textarea>
             </div>
 
             <div class="col-md-5">

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj produkt</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"/>
+    <link  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-info navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#" th:href="@{'/index'}">Start Webstore</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" th:href="@{'/logout'}">Wyloguj</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Moje Konto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<form th:object="${user}" th:action="@{/editedUser/}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <div class="container" style="margin-top: 20px">
+        <div class="form-group">
+            <div class="col-md-5">
+                <h2>Twój profil</h2>
+                <label>Imię:</label>
+                <input type="text" class="form-control" placeholder="Wpisz imię" th:field="*{firstName}"/>
+
+                <label>Nazwisko:</label>
+                <input type="text" class="form-control" placeholder="Wpisz nazwisko" th:field="*{lastName}"/>
+            </div>
+            <div class="col-md-3">
+                <label>Kraj:</label>
+                <input type="text" class="form-control" placeholder="Wpisz kraj" th:field="*{address.country}"/>
+
+                <label>Miasto:</label>
+                <input type="text" class="form-control" placeholder="Wpisz miasto" th:field="*{address.city}"/>
+
+                <label>Kod Pocztowy:</label>
+                <input type="text" class="form-control" placeholder="Wpisz kod pocztowy" th:field="*{address.zipcode}"/>
+
+                <label>Ulica:</label>
+                <input type="text" class="form-control" placeholder="Wpisz ulicę" th:field="*{address.street}"/>
+
+                <label>Nr domu:</label>
+                <input type="text" class="form-control" placeholder="Wpisz nr domu" th:field="*{address.houseNumber}"/>
+            </div>
+
+
+            <div class="col-md-5" style="margin-top: 20px">
+                <button type="submit" class="btn btn-primary bg-info">Submit</button>
+            </div>
+
+
+</body>
+</html>
